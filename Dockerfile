@@ -2,11 +2,9 @@ FROM golang:alpine3.12 as builder
 
 ENV CADVISOR_VERSION "v0.39"
 
-RUN apt-get update                                      \
-    && apt-get install -y git dmsetup                   \
-    && apt-get clean                                    \
-    && git clone --branch release-${CADVISOR_VERSION}   \
-        https://github.com/google/cadvisor.git          \
+RUN apk add --no-cache git                            \
+    && git clone --branch release-${CADVISOR_VERSION} \
+        https://github.com/google/cadvisor.git        \
         /src/cadvisor
 
 WORKDIR /src/cadvisor
