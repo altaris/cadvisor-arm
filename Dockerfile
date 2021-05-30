@@ -7,15 +7,14 @@ RUN apt-get update                                      \
     && apt-get clean                                    \
     && git clone --branch release-${CADVISOR_VERSION}   \
         https://github.com/google/cadvisor.git          \
-        /go/src/github.com/google/cadvisor
+        /src/cadvisor
 
-WORKDIR /go/src/github.com/google/cadvisor
+WORKDIR /src/cadvisor
 RUN make build
 
 FROM arm32v7/debian
 
-COPY --from=builder /go/src/github.com/google/cadvisor/cadvisor \
-    /usr/bin/cadvisor
+COPY --from=builder /src/cadvisor/cadvisor /usr/bin/cadvisor
 
 EXPOSE 8080
 ENTRYPOINT ["/usr/bin/cadvisor", "-logtostderr"]
