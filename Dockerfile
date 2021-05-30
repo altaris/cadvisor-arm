@@ -2,7 +2,7 @@ FROM golang:alpine3.12 as builder
 
 ENV CADVISOR_VERSION "v0.39"
 
-RUN apk add --no-cache git                            \
+RUN apk add --no-cache device-mapper git make         \
     && git clone --branch release-${CADVISOR_VERSION} \
         https://github.com/google/cadvisor.git        \
         /src/cadvisor
