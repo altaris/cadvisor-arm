@@ -1,12 +1,12 @@
 FROM arm32v7/golang as builder
 
-ENV CADVISOR_VERSION "v0.30.2"
+ENV CADVISOR_VERSION "v0.39"
 
-RUN apt-get update                                  \
-    && apt-get install -y git dmsetup               \
-    && apt-get clean                                \
-    && git clone --branch ${CADVISOR_VERSION}       \
-        https://github.com/google/cadvisor.git      \
+RUN apt-get update                                      \
+    && apt-get install -y git dmsetup                   \
+    && apt-get clean                                    \
+    && git clone --branch release-${CADVISOR_VERSION}   \
+        https://github.com/google/cadvisor.git          \
         /go/src/github.com/google/cadvisor
 
 WORKDIR /go/src/github.com/google/cadvisor
