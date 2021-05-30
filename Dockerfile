@@ -1,4 +1,4 @@
-FROM arm32v7/golang as builder
+FROM golang:alpine3.12 as builder
 
 ENV CADVISOR_VERSION "v0.39"
 
@@ -12,7 +12,7 @@ RUN apt-get update                                      \
 WORKDIR /src/cadvisor
 RUN make build
 
-FROM arm32v7/debian
+FROM arm32v7/alpine:3.12
 
 COPY --from=builder /src/cadvisor/cadvisor /usr/bin/cadvisor
 
